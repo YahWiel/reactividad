@@ -24,7 +24,8 @@
    
 //state
     const state={
-        AllTask:[]
+        AllTask:[],
+        nombre:""
     }
 //template UI
 
@@ -43,8 +44,9 @@
 
     //actualizar el state de forma reactiva
     const setState=obj=>{
-        for(let key in obj){
+        for(let key in obj){ //el key es el indice de mi objeto;es decir 'AllTasks'
             state[key]=obj[key];
+            //console.log(state[key]);
         }
         render();
     }
