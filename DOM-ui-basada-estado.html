@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="frmTask" action="">
+        <input type="text" id="task" placeholder="tarea por ahcer">
+        <input type="submit" value="Agregar">
+    </form>
+    <h2>Lista de Tareas</h2>
+    <ul id="AllTasks">
+
+    </ul>
+</body>
+
+<script>
+
+    const d=document;
+    let $task= d.getElementById("task");
+   
+//state
+    const state={
+        AllTask:[]
+    }
+//template UI
+
+    const template=()=>{
+        if(state.lenght<1) return `<p>Sin tareas</p>`;
+        let tasks=state.AllTask.map(task=>`<li>${task}</li>`).join("");
+        return tasks;
+    }
+
+    const render=()=>{
+        console.log(state);
+        let $lists=d.getElementById("AllTasks");
+        if(!$lists) return;
+        $lists.innerHTML=template();
+
+    }
+    
+    d.addEventListener("DOMContentLoaded",e=>{
+        render();
+    });
+    
+    d.addEventListener("submit",e=>{
+        if(e.target.matches("#frmTask")){
+            e.preventDefault();
+
+            state.AllTask.push($task.value);
+            render();
+            $task.value=""
+            $task.focus();
+        }
+    }) 
+
+
+
+
+
+
+
+
+    //manipulacion del DOM no reactividad
+    /* const d=document;
+    let $task= d.getElementById("task");
+    let $lists=d.getElementById("AllTasks");
+
+    d.addEventListener("submit",e=>{
+        if(e.target.matches("#frmTask")){
+            e.preventDefault();
+            let $li=d.createElement('li');
+            $li.innerHTML=$task.value;
+
+            $lists.appendChild($li);
+
+            $task.value=""
+            $task.focus();
+        }
+    }) */
+
+
+</script>
+
+</html>

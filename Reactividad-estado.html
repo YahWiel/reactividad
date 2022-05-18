@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="frmTask" action="">
+        <input type="text" id="task" placeholder="tarea por ahcer">
+        <input type="submit" value="Agregar">
+    </form>
+    <h2>Lista de Tareas</h2>
+    <ul id="AllTasks">
+
+    </ul>
+</body>
+
+<script>
+
+    const d=document;
+    let $task= d.getElementById("task");
+   
+//state
+    const state={
+        AllTask:[]
+    }
+//template UI
+
+    const template=()=>{
+        if(state.lenght<1) return `<p>Sin tareas</p>`;
+        let tasks=state.AllTask.map(task=>`<li>${task}</li>`).join("");
+        return tasks;
+    }
+
+    const render=()=>{
+        console.log(state);
+        let $lists=d.getElementById("AllTasks");
+        if(!$lists) return;
+        $lists.innerHTML=template();
+    }
+
+    //actualizar el state de forma reactiva
+    const setState=obj=>{
+        for(let key in obj){
+            state[key]=obj[key];
+        }
+        render();
+    }
+    
+    d.addEventListener("DOMContentLoaded",e=>{
+        render();
+    });
+
+    //establecer valores por defecto al state 
+    setState({
+        AllTask:["tarea1","tarea2","tarea3"]
+    })
+    
+    d.addEventListener("submit",e=>{
+        if(e.target.matches("#frmTask")){
+            e.preventDefault();
+
+            state.AllTask.push($task.value);
+            render();
+            $task.value=""
+            $task.focus();
+        }
+    }) 
+
+
+  
+
+
+</script>
+
+</html>
